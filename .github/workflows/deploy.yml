@@ -58,9 +58,9 @@ jobs:
         uses: appleboy/ssh-action@master
         id: deploy-prod
         with:
-          host: ${{ secrets.HOST_PROD }} # EC2 퍼블릭 IPv4 DNS
-          username: ec2-user
-          key: ${{ secrets.PRIVATE_KEY }}
+          host: ${{ secrets.GCP_VM_HOST }}
+          username: ${{ secrets.GCP_SSH_USERNAME }}
+          key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
           envs: GITHUB_SHA
           script: |
             CONTAINER_ID=$(sudo docker ps -q --filter "ancestor=${{ secrets.DOCKER_IMAGENAME }}:latest")
