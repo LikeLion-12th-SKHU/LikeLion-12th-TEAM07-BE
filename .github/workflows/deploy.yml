@@ -50,8 +50,8 @@ jobs:
       - name: Docker build & push to prod
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build --platform linux/amd64 -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
+          docker build --platform linux/amd64 -t ${{ secrets.DOCKER_IMAGENAME }}:latest .
+          docker push ${{ secrets.DOCKER_IMAGENAME }}:latest
 
       ## deploy to production
       - name: Deploy to prod
@@ -63,9 +63,9 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           envs: GITHUB_SHA
           script: |
-            CONTAINER_ID=$(sudo docker ps -q --filter "ancestor=${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}")
+            CONTAINER_ID=$(sudo docker ps -q --filter "ancestor=${{ secrets.DOCKER_IMAGENAME }}:latest")
             sudo docker stop $CONTAINER_ID
             sudo docker rm -f $CONTAINER_ID
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}
-            sudo docker run -d -p ${{ secrets.LOCAL_PORT }}:${{ secrets.DOCKER_PORT }} ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}
+            sudo docker pull ${{ secrets.DOCKER_IMAGENAME }}:latest
+            sudo docker run -d -p ${{ secrets.LOCAL_PORT }}:${{ secrets.DOCKER_PORT }} ${{ secrets.DOCKER_IMAGENAME }}:latest
             sudo docker image prune -f
