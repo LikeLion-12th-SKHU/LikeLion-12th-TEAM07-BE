@@ -7,6 +7,7 @@ import com.likeliar.likeliar.gameRoom.api.dto.request.GameRoomUpdateReqDto;
 import com.likeliar.likeliar.gameRoom.api.dto.response.GameRoomInfoResDto;
 import com.likeliar.likeliar.gameRoom.api.dto.response.GameRoomListResDto;
 import com.likeliar.likeliar.gameRoom.domain.GameRoom;
+import com.likeliar.likeliar.gameRoom.domain.repository.GameRoomRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,13 +17,12 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 public class GameRoomService {
-    /*private final MemberRepository memberRepository;
+    //private final MemberRepository memberRepository;
     private final GameRoomRepository gameRoomRepository;
 
-    public GameRoomService(MemberRepository memberRepository, GameRoomRepository gameRoomRepository) {
-        this.memberRepository = memberRepository;
-        this.GameRoomRepository = gameRoomRepository;
-    }*/
+    public GameRoomService(GameRoomRepository gameRoomRepository) {
+        this.gameRoomRepository = gameRoomRepository;
+    }
 
 
     @Transactional
