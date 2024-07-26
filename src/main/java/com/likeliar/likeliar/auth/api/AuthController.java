@@ -58,7 +58,8 @@ public class AuthController {
         AuthService authService = authServiceFactory.getAuthService(provider);
         UserInfo userInfo = authService.getUserInfo(tokenReqDto.authCode());
 
-        MemberLoginResDto getMemberDto = memberService.saveUserInfo(userInfo, SocialType.valueOf(provider.toUpperCase()));
+        MemberLoginResDto getMemberDto = memberService.saveUserInfo(userInfo,
+                SocialType.valueOf(provider.toUpperCase()));
         TokenDto getToken = tokenService.getToken(getMemberDto);
 
         return new RspTemplate<>(HttpStatus.OK, "토큰 발급", getToken);
