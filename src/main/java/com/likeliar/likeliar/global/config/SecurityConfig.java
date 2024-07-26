@@ -14,8 +14,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -46,6 +44,8 @@ public class SecurityConfig {
                 "/api/kakao/id-token",
                 "/api/kakao/token",
                 "/api/token/access",
+                "/api/rooms/",
+                "/api/members/ranking"
         };
 
         for (String url : permittedUrls) {
@@ -60,7 +60,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return webSecurity -> webSecurity.ignoring()
-                .requestMatchers("/docs/**", "/api-docs/**", "/swagger-ui/**", "/favicon.ico");
+                .requestMatchers("/docs/**", "/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico");
     }
-
+    
 }

@@ -3,7 +3,12 @@ package com.likeliar.likeliar.global.jwt;
 import com.likeliar.likeliar.global.jwt.api.dto.TokenDto;
 import com.likeliar.likeliar.member.domain.Member;
 import com.likeliar.likeliar.member.domain.repository.MemberRepository;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
@@ -115,9 +120,8 @@ public class TokenProvider {
                 .getBody();
 
         Member member = memberRepository.findByEmail(claims.getSubject()).orElseThrow();
-
         List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(member.getRole().toString()));
 
-        return new UsernamePasswordAuthenticationToken(member, "", authorities);
+        return new UsernamePasswordAuthenticationToken(claims.getSubject(), "", authorities);
     }
 }

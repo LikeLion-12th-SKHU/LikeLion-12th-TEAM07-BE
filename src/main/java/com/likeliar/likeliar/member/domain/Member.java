@@ -36,6 +36,10 @@ public class Member {
 
     private String nickname;
 
+    private int score;
+
+    private int gameRounds;
+
     @Builder
     private Member(Role role, String email, String name, String picture, SocialType socialType, String nickname) {
         this.role = role;
@@ -44,5 +48,8 @@ public class Member {
         this.picture = picture;
         this.socialType = socialType;
         this.nickname = nickname;
+        this.score = 0;
+        this.gameRounds = 0;
     }
+
 }
