@@ -16,7 +16,8 @@ public enum ErrorCode {
     MEMBERS_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "해당 사용자가 없습니다. memberId = ", "NOT_FOUND_404"),
     GAMEROOMS_MEMBER_MAPPING_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "해당 게임 방의 참여자가 없습니다. memberId = ",
             "NOT_FOUND_404"),
-
+    WORDS_NOT_FOUND_EXCEPTION(HttpStatus.NOT_FOUND, "해당 단어가 없습니다. wordId = ", "NOT_FOUND_404"),
+  
     /**
      * 500 INTERNAL SERVER ERROR
      */

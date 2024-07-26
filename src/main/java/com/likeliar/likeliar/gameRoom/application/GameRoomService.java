@@ -13,6 +13,7 @@ import com.likeliar.likeliar.gameRoom.domain.repository.GameRoomRepository;
 import com.likeliar.likeliar.member.domain.Member;
 import com.likeliar.likeliar.member.domain.repository.MemberRepository;
 import java.util.List;
+import com.likeliar.likeliar.gameRoom.domain.repository.GameRoomRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
