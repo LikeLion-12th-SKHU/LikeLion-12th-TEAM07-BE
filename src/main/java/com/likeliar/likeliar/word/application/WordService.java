@@ -1,22 +1,20 @@
 package com.likeliar.likeliar.word.application;
 
-import com.likeliar.likeliar.common.error.ErrorCode;
-import com.likeliar.likeliar.common.exception.NotFoundException;
 import com.likeliar.likeliar.word.api.dto.response.WordInfoResDto;
 import com.likeliar.likeliar.word.api.dto.response.WordListResDto;
 import com.likeliar.likeliar.word.domain.Word;
 import com.likeliar.likeliar.word.domain.repository.WordRepository;
+import java.util.List;
+import java.util.Random;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
 public class WordService {
     private final WordRepository wordRepository;
 
-    public WordService(WordRepository wordRepository){
+    public WordService(WordRepository wordRepository) {
         this.wordRepository = wordRepository;
     }
 
@@ -30,14 +28,14 @@ public class WordService {
         return WordListResDto.from(wordInfoResDtoList);
     }
 
-    // Read One (단어 id에 따른 단어 하나 조회)
-    public WordInfoResDto wordFindById(Long wordId) {
-        Word word = wordRepository.findById(wordId).orElseThrow(
-                () -> new NotFoundException(ErrorCode.WORDS_NOT_FOUND_EXCEPTION,
-                        ErrorCode.WORDS_NOT_FOUND_EXCEPTION.getMessage()
-                                + wordId)
-        );
+    // 주제에 따른 단어 랜덤으로 한개 가져오기
+    public WordInfoResDto wordFindById(String subject) {
+        List<Word> words = wordRepository.findBySubject(subject);
 
-        return WordInfoResDto.from(word);
+        Random random = new Random();
+        Word randomWord = words.get(random.nextInt(words.size()));
+
+        return WordInfoResDto.from(randomWord);
     }
+    
 }

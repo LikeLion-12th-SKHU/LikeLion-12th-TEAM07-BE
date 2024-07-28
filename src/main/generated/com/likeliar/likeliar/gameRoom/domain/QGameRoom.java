@@ -22,7 +22,12 @@ public class QGameRoom extends EntityPathBase<GameRoom> {
 
     public static final QGameRoom gameRoom = new QGameRoom("gameRoom");
 
+    public final com.likeliar.likeliar.global.entity.QBaseEntity _super = new com.likeliar.likeliar.global.entity.QBaseEntity(this);
+
     public final StringPath content = createString("content");
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     public final com.likeliar.likeliar.member.domain.QMember leader;
 
@@ -33,6 +38,9 @@ public class QGameRoom extends EntityPathBase<GameRoom> {
     public final StringPath roomName = createString("roomName");
 
     public final StringPath subject = createString("subject");
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
     public QGameRoom(String variable) {
         this(GameRoom.class, forVariable(variable), INITS);

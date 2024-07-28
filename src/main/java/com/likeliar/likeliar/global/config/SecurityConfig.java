@@ -62,5 +62,5 @@ public class SecurityConfig {
         return webSecurity -> webSecurity.ignoring()
                 .requestMatchers("/docs/**", "/v3/api-docs/**", "/swagger-ui/**", "/favicon.ico");
     }
-    
+
 }

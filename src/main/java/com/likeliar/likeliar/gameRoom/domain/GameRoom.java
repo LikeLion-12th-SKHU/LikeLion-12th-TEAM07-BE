@@ -1,6 +1,7 @@
 package com.likeliar.likeliar.gameRoom.domain;
 
 import com.likeliar.likeliar.gameRoom.api.dto.request.GameRoomUpdateReqDto;
+import com.likeliar.likeliar.global.entity.BaseEntity;
 import com.likeliar.likeliar.member.domain.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class GameRoom {
+public class GameRoom extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
