@@ -52,4 +52,9 @@ public class Member {
         this.gameRounds = 0;
     }
 
+    public void endGame(int score) {
+        this.score += score;
+        this.gameRounds++;
+    }
+
 }

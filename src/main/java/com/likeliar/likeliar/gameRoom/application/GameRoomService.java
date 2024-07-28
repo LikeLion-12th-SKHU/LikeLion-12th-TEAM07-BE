@@ -1,7 +1,5 @@
 package com.likeliar.likeliar.gameRoom.application;
 
-import com.likeliar.likeliar.common.error.ErrorCode;
-import com.likeliar.likeliar.common.exception.NotFoundException;
 import com.likeliar.likeliar.gameRoom.api.dto.request.GameRoomSaveReqDto;
 import com.likeliar.likeliar.gameRoom.api.dto.request.GameRoomUpdateReqDto;
 import com.likeliar.likeliar.gameRoom.api.dto.response.GameRoomInfoResDto;
@@ -10,10 +8,12 @@ import com.likeliar.likeliar.gameRoom.domain.GameRoom;
 import com.likeliar.likeliar.gameRoom.domain.GameRoomMemberMapping;
 import com.likeliar.likeliar.gameRoom.domain.repository.GameRoomMemberRepository;
 import com.likeliar.likeliar.gameRoom.domain.repository.GameRoomRepository;
+import com.likeliar.likeliar.gameRoom.exception.GameRoomMemberNotFoundException;
+import com.likeliar.likeliar.gameRoom.exception.GameRoomNotFoundException;
 import com.likeliar.likeliar.member.domain.Member;
 import com.likeliar.likeliar.member.domain.repository.MemberRepository;
+import com.likeliar.likeliar.member.exception.MemberNotFoundException;
 import java.util.List;
-import com.likeliar.likeliar.gameRoom.domain.repository.GameRoomRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -116,31 +116,25 @@ public class GameRoomService {
         GameRoom gameRoom = getGameRoomById(gameRoomId);
 
         GameRoomMemberMapping gameRoomMemberMapping = gameRoomMemberRepository.findByGameRoomAndMember(gameRoom, member)
-                .orElseThrow(
-                        () -> new NotFoundException(ErrorCode.GAMEROOMS_MEMBER_MAPPING_NOT_FOUND_EXCEPTION,
-                                ErrorCode.GAMEROOMS_MEMBER_MAPPING_NOT_FOUND_EXCEPTION.getMessage()
-                                        + email)
-                );
+                .orElseThrow(GameRoomMemberNotFoundException::new);
 
         gameRoomMemberRepository.delete(gameRoomMemberMapping);
     }
 
     // 게임 끝난 후 점수와 판수를 올려주는 로직
+    @Transactional
+    public void endGame(String email, int score) {
+        Member member = getMemberByEmail(email);
+
+        member.endGame(score);
+    }
 
     private Member getMemberByEmail(String email) {
-        return memberRepository.findByEmail(email).orElseThrow(
-                () -> new NotFoundException(ErrorCode.MEMBERS_NOT_FOUND_EXCEPTION,
-                        ErrorCode.MEMBERS_NOT_FOUND_EXCEPTION.getMessage()
-                                + email)
-        );
+        return memberRepository.findByEmail(email).orElseThrow(MemberNotFoundException::new);
     }
 
     private GameRoom getGameRoomById(Long gameRoomId) {
-        return gameRoomRepository.findById(gameRoomId).orElseThrow(
-                () -> new NotFoundException(ErrorCode.GAMEROOMS_NOT_FOUND_EXCEPTION,
-                        ErrorCode.GAMEROOMS_NOT_FOUND_EXCEPTION.getMessage()
-                                + gameRoomId)
-        );
+        return gameRoomRepository.findById(gameRoomId).orElseThrow(GameRoomNotFoundException::new);
     }
 
 }

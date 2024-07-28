@@ -1,7 +1,6 @@
 package com.likeliar.likeliar.word.domain;
 
 
-import com.likeliar.likeliar.gameRoom.api.dto.request.GameRoomUpdateReqDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -18,13 +17,13 @@ public class Word {
     @Column(name = "word_id")
     private Long wordId; //단어 ID
 
-    private String topic; //주제
+    private String subject; //주제
     private String vocabulary; //단어
     private String explanation; //단어 뜻, 설명
 
     @Builder
-    private Word(String topic, String vocabulary, String explanation){
-        this.topic = topic;
+    private Word(String subject, String vocabulary, String explanation){
+        this.subject = subject;
         this.vocabulary = vocabulary;
         this.explanation = explanation;
     }
