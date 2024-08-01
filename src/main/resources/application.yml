@@ -17,6 +17,14 @@ spring:
         format_sql: true
     open-in-view: false
 
+  cloud:
+    gcp:
+      storage:
+        credentials:
+          location: ${spring.cloud.gcp.storage.credentials.location}
+        project-id: ${spring.cloud.gcp.storage.project-id}
+        bucket: ${spring.cloud.gcp.storage.bucket}
+
 logging:
   level:
     org.hibernate.sql: debug
