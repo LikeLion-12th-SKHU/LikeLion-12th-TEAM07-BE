@@ -37,9 +37,16 @@ jobs:
       # 환경별 yml 파일 생성 - prod
       - name: make application-prod.yml
         run: |
-            cd ./src/main/resources
-            touch ./application-prod.yml
-            echo "${{ secrets.YML_PROD }}" > ./application-prod.yml
+          cd ./src/main/resources
+          touch ./application-prod.yml
+          echo "${{ secrets.YML_PROD }}" > ./application-prod.yml
+        shell: bash
+
+      # .json 파일 생성
+      - name: make serviceAccountKey.json
+        run: |
+          touch ./remember-spring-gcp.json
+          echo "${{ secrets.SERVICE_ACCOUNT_KEY }}" > ./remember-spring-gcp.json
         shell: bash
 
       # gradle build -> 도커파일을 빌드 안하기 때문에 gradle 빌드도 필요 x
