@@ -2,11 +2,12 @@ package com.likeliar.likeliar.global.oauth.application;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.likeliar.likeliar.global.oauth.api.dto.response.KakaoTokenResponse;
 import com.likeliar.likeliar.auth.api.dto.response.UserInfo;
 import com.likeliar.likeliar.auth.application.AuthService;
+import com.likeliar.likeliar.global.oauth.api.dto.response.KakaoTokenResponse;
 import com.likeliar.likeliar.global.oauth.exception.OAuthException;
 import com.likeliar.likeliar.member.domain.SocialType;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Objects;
@@ -74,7 +75,9 @@ public class KaKaoAuthService implements AuthService {
     private MultiValueMap<String, String> createRequestParams(String code) {
         MultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
 
-        requestParams.add("code", code);
+        String decode = URLDecoder.decode(code, StandardCharsets.UTF_8);
+
+        requestParams.add("code", decode);
         requestParams.add("client_id", kakaoClientId);
         requestParams.add("grant_type", "authorization_code");
         requestParams.add("redirect_uri", kakaoRedirectUri);
