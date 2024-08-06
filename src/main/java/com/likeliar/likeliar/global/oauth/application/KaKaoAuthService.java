@@ -7,7 +7,6 @@ import com.likeliar.likeliar.auth.application.AuthService;
 import com.likeliar.likeliar.global.oauth.api.dto.response.KakaoTokenResponse;
 import com.likeliar.likeliar.global.oauth.exception.OAuthException;
 import com.likeliar.likeliar.member.domain.SocialType;
-import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Objects;
@@ -75,9 +74,7 @@ public class KaKaoAuthService implements AuthService {
     private MultiValueMap<String, String> createRequestParams(String code) {
         MultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
 
-        String decode = URLDecoder.decode(code, StandardCharsets.UTF_8);
-
-        requestParams.add("code", decode);
+        requestParams.add("code", code);
         requestParams.add("client_id", kakaoClientId);
         requestParams.add("grant_type", "authorization_code");
         requestParams.add("redirect_uri", kakaoRedirectUri);

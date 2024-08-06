@@ -61,9 +61,9 @@ public class GameRoomController {
             @ApiResponse(responseCode = "200", description = "조회 성공"),
             @ApiResponse(responseCode = "401", description = "인증실패", content = @Content(schema = @Schema(example = "INVALID_HEADER or INVALID_TOKEN"))),
     })
-    @GetMapping("/{roomsId}")
+    @GetMapping("/{roomId}")
     public RspTemplate<GameRoomInfoResDto> gameRoomFindById(@AuthenticationPrincipal String email,
-                                                            @PathVariable("roomsId") Long gameRoomId) {
+                                                            @PathVariable("roomId") Long gameRoomId) {
         GameRoomInfoResDto gameRoomInfoResDto = gameRoomService.gameRoomFindById(email, gameRoomId);
         return new RspTemplate<>(HttpStatus.OK, "게임 방 단건 조회", gameRoomInfoResDto);
     }
@@ -73,9 +73,9 @@ public class GameRoomController {
             @ApiResponse(responseCode = "200", description = "수정 성공"),
             @ApiResponse(responseCode = "401", description = "인증실패", content = @Content(schema = @Schema(example = "INVALID_HEADER or INVALID_TOKEN"))),
     })
-    @PatchMapping("/{gameId}")
+    @PatchMapping("/{roomId}")
     public RspTemplate<GameRoomInfoResDto> gameRoomUpdate(@AuthenticationPrincipal String email,
-                                                          @PathVariable("gameId") Long gameRoomId,
+                                                          @PathVariable("roomId") Long gameRoomId,
                                                           @RequestBody @Valid GameRoomUpdateReqDto gameRoomUpdateReqDto) {
         GameRoomInfoResDto gameRoomInfoResDto = gameRoomService.gameRoomUpdate(email, gameRoomId, gameRoomUpdateReqDto);
         return new RspTemplate<>(HttpStatus.OK, "게임 방 수정", gameRoomInfoResDto);
@@ -87,9 +87,9 @@ public class GameRoomController {
             @ApiResponse(responseCode = "200", description = "삭제 성공"),
             @ApiResponse(responseCode = "401", description = "인증실패", content = @Content(schema = @Schema(example = "INVALID_HEADER or INVALID_TOKEN"))),
     })
-    @DeleteMapping("/{gameId}")
+    @DeleteMapping("/{roomId}")
     public RspTemplate<Void> gameRoomDelete(@AuthenticationPrincipal String email,
-                                            @PathVariable("gameId") Long gameRoomId) {
+                                            @PathVariable("roomId") Long gameRoomId) {
         gameRoomService.gameRoomDelete(email, gameRoomId);
         return new RspTemplate<>(HttpStatus.OK, "게임 방 삭제");
     }
@@ -99,9 +99,9 @@ public class GameRoomController {
             @ApiResponse(responseCode = "200", description = "참여 성공"),
             @ApiResponse(responseCode = "401", description = "인증실패", content = @Content(schema = @Schema(example = "INVALID_HEADER or INVALID_TOKEN"))),
     })
-    @PostMapping("/{gameId}/join")
+    @PostMapping("/{roomId}/join")
     public RspTemplate<Void> joinGame(@AuthenticationPrincipal String email,
-                                      @PathVariable("gameId") Long gameRoomId) {
+                                      @PathVariable("roomId") Long gameRoomId) {
         gameRoomService.joinGame(email, gameRoomId);
         return new RspTemplate<>(HttpStatus.OK, "게임 방 참여");
     }
@@ -111,9 +111,9 @@ public class GameRoomController {
             @ApiResponse(responseCode = "200", description = "나가기 성공"),
             @ApiResponse(responseCode = "401", description = "인증실패", content = @Content(schema = @Schema(example = "INVALID_HEADER or INVALID_TOKEN"))),
     })
-    @PostMapping("/{gameId}/exit")
+    @PostMapping("/{roomId}/exit")
     public RspTemplate<Void> exitGame(@AuthenticationPrincipal String email,
-                                      @PathVariable("gameId") Long gameRoomId) {
+                                      @PathVariable("roomId") Long gameRoomId) {
         gameRoomService.exitGame(email, gameRoomId);
         return new RspTemplate<>(HttpStatus.OK, "게임 방 나가기");
     }

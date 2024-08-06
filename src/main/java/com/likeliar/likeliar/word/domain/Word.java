@@ -1,7 +1,11 @@
 package com.likeliar.likeliar.word.domain;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,13 +23,13 @@ public class Word {
 
     private String subject; //주제
     private String vocabulary; //단어
-    private String explanation; //단어 뜻, 설명
+    private String description;
 
     @Builder
-    private Word(String subject, String vocabulary, String explanation){
+    private Word(String subject, String vocabulary, String description) {
         this.subject = subject;
         this.vocabulary = vocabulary;
-        this.explanation = explanation;
+        this.description = description;
     }
 
 }

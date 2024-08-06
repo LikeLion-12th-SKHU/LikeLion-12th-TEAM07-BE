@@ -5,15 +5,15 @@ import lombok.Builder;
 
 @Builder
 public record WordInfoResDto(
-        String topic, //주제
+        String subject, //주제
         String vocabulary, //단어
-        String explanation //단어 뜻, 설명
+        String description //단어 뜻, 설명
 ) {
     public static WordInfoResDto from(Word word) {
         return WordInfoResDto.builder()
-                .topic(word.getSubject())
+                .subject(word.getSubject())
                 .vocabulary(word.getVocabulary())
-                .explanation(word.getExplanation())
+                .description(word.getDescription())
                 .build();
 
     }
