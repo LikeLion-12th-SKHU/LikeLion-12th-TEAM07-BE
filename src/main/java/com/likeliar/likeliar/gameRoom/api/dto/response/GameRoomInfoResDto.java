@@ -10,6 +10,7 @@ import lombok.Builder;
 public record GameRoomInfoResDto(
         Long myMemberId,
         Long leaderId,
+        Long roomId,
         String roomName,
         Long playerNumber,
         String subject,
@@ -20,6 +21,7 @@ public record GameRoomInfoResDto(
         return GameRoomInfoResDto.builder()
                 .myMemberId(member.getId())
                 .leaderId(gameRoom.getLeader().getId())
+                .roomId(gameRoom.getRoomId())
                 .roomName(gameRoom.getRoomName())
                 .playerNumber(gameRoom.getPlayerNumber())
                 .subject(gameRoom.getSubject())

@@ -19,7 +19,7 @@ public class QWord extends EntityPathBase<Word> {
 
     public static final QWord word = new QWord("word");
 
-    public final StringPath explanation = createString("explanation");
+    public final StringPath description = createString("description");
 
     public final StringPath subject = createString("subject");
 

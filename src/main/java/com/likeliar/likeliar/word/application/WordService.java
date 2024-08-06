@@ -1,5 +1,6 @@
 package com.likeliar.likeliar.word.application;
 
+import com.likeliar.likeliar.word.api.dto.request.WordSaveReqDto;
 import com.likeliar.likeliar.word.api.dto.response.WordInfoResDto;
 import com.likeliar.likeliar.word.api.dto.response.WordListResDto;
 import com.likeliar.likeliar.word.domain.Word;
@@ -16,6 +17,17 @@ public class WordService {
 
     public WordService(WordRepository wordRepository) {
         this.wordRepository = wordRepository;
+    }
+
+    @Transactional
+    public void save(WordSaveReqDto wordSaveReqDto) {
+        Word word = Word.builder()
+                .subject(wordSaveReqDto.subject())
+                .vocabulary(wordSaveReqDto.vocabulary())
+                .description(wordSaveReqDto.description())
+                .build();
+
+        wordRepository.save(word);
     }
 
     public WordListResDto wordFindAll() {
@@ -37,5 +49,5 @@ public class WordService {
 
         return WordInfoResDto.from(randomWord);
     }
-    
+
 }
