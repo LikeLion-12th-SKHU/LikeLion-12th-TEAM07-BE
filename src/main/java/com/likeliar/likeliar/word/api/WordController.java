@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,9 +30,9 @@ public class WordController {
     }
 
     @PostMapping("/")
-    public RspTemplate<Void> save(@RequestBody WordSaveReqDto wordSaveReqDto) {
+    public RspTemplate<Void> save(@RequestBody List<WordSaveReqDto> wordSaveReqDto) {
         wordService.save(wordSaveReqDto);
-        return new RspTemplate<>(HttpStatus.OK, "단어 저장!ht");
+        return new RspTemplate<>(HttpStatus.OK, "단어 저장!");
     }
 
     @Operation(summary = "단어 전체 조회", description = "단어를 전체 조회합니다.")
@@ -39,9 +40,9 @@ public class WordController {
             @ApiResponse(responseCode = "200", description = "조회 성공"),
             @ApiResponse(responseCode = "401", description = "인증실패", content = @Content(schema = @Schema(example = "INVALID_HEADER or INVALID_TOKEN"))),
     })
-    @GetMapping
-    public RspTemplate<WordListResDto> WordFindAll() {
-        WordListResDto wordListResDto = wordService.wordFindAll();
+    @GetMapping("/")
+    public RspTemplate<List<WordListResDto>> WordFindAll() {
+        List<WordListResDto> wordListResDto = wordService.wordFindAll();
         return new RspTemplate<>(HttpStatus.OK, "단어 전체 조회", wordListResDto);
     }
 
