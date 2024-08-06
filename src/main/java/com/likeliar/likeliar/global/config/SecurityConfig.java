@@ -44,7 +44,8 @@ public class SecurityConfig {
                 "/api/kakao/token",
                 "/api/token/access",
                 "/api/rooms/",
-                "/api/members/ranking"
+                "/api/members/ranking",
+                "/api/words/"
         };
 
         for (String url : permittedUrls) {
